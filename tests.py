@@ -19,7 +19,7 @@ import time
 
 from app import create_app
 from app import db
-from app.models import User, Announcement, ReloginToken, Role
+from app.models import User, ReloginToken, Role
 from config import Config
 
 class TestConfig(Config):
@@ -131,37 +131,6 @@ class UserModelCase(unittest.TestCase, Trait):
         self.assertFalse(u2.is_suspended())
         self.assertFalse(u3.is_suspended())
 
-
-class AnnouncementModelCase(unittest.TestCase, Trait):
-    def setUp(self):
-        """setUp 
-        
-        This method sets up environment for each test.
-        """
-        self.app = create_app(TestConfig)
-        self.app_context = self.app.app_context()
-        self.app_context.push()
-        db.create_all()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-        self.app_context.pop()
-
-    def test_chronological_annc(self):
-        """test_chronological_annc 
-        
-        Tests if announcements are arranged chronologically.
-        """
-        a1 = Announcement(title="Dummy", body="ss")
-        db.session.add(a1)
-        db.session.commit()
-        time.sleep(0.05)
-        a2 = Announcement(title="Dummy2", body="ss")
-        db.session.add(a2)
-        db.session.commit()
-        self.assertTrue(Announcement.get_all()[0] == a2)
-        self.assertTrue(Announcement.get_all()[1] == a1)
 
 
 class TestRLToken(unittest.TestCase, Trait):
