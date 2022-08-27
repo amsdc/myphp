@@ -1,0 +1,53 @@
+{% from 'bootstrap/form.html' import render_form, render_field, render_hidden_errors %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ bootstrap.load_css() }}
+    <title>Account Creation Form</title>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "message" %}
+                {% set category = "success" %}
+            {% endif %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Create an account</h1>
+                <p>E-mail address: <a href="mailto:{{ email }}">{{ email }}</a></p>
+            </div>
+            <div class="col-md-6">
+			<form action="" method="post">
+                {{ form.hidden_tag() }}
+				{{ render_hidden_errors(form) }}
+				{{ render_field(form.username) }}
+				{{ render_field(form.password) }}
+				{{ render_field(form.password2) }}
+				<br>
+				<hr>
+				<br>
+				{{ xcaptcha }}
+				{{ render_field(form.submit) }}
+			</form>
+            </div>
+        </div>
+        
+    </div>
+    {{ bootstrap.load_js() }}
+</body>
+</html>

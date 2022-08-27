@@ -1,0 +1,30 @@
+{% extends "setup/base.html" %}
+{% block step %}3{% endblock %}
+{% block title %}Create Root User{% endblock %}
+{% block content %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        To edit content, a user must be created. By default,
+        Web Setup creates a <b>__root</b> user. This user is
+        a system user and is used only for creating other 
+        users on MyPHP. Please click the below button to 
+        create a root user.
+        <br>
+        <b>
+            Note that you cannot sign in into accounts having
+            usernames as <em>__</em>, as they are system
+            users.
+        </b>
+    </p>
+    <p>
+        {{ form.vtext.label }}<br>
+        {{ form.vtext(size=32) }}
+        {% for error in form.vtext.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

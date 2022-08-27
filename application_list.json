@@ -1,0 +1,30 @@
+[
+    {
+        "application_id": "admin",
+        "application_name": "Administration Dashboard",
+        "application_index_route": "admin.index",
+        "icon": null,
+        "requires": ["admin.dashboard:view"]
+    },
+    {
+        "application_id": "auth",
+        "application_name": "Authentication",
+        "application_index_route": null,
+        "icon": null,
+        "requires": []
+    },
+    {
+        "application_id": "main",
+        "application_name": "Homepage",
+        "application_index_route": "main.index",
+        "icon": null,
+        "requires": []
+    },
+    {
+        "application_id": "profile",
+        "application_name": "Account",
+        "application_index_route": "profile.index",
+        "icon": null,
+        "requires": []
+    }
+]

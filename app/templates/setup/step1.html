@@ -1,0 +1,76 @@
+{% extends "setup/base.html" %}
+{% block step %}1{% endblock %}
+{% block title %}Configure MyPHP{% endblock %}
+{% block content %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        To store page metadata, a database connection is required.
+        The below will generate the configuration to integrate
+        the database with the application.
+    </p>
+    <p>
+        {{ form.db_username.label }}<br>
+        {{ form.db_username(size=32) }}
+        {% for error in form.db_username.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.db_password.label }}<br>
+        {{ form.db_password(size=32) }}
+        {% for error in form.db_password.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.db_port.label }}<br>
+        {{ form.db_port(size=32) }}
+        {% for error in form.db_port.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <span>
+        {{ form.db_name.label }}<br>
+        <span style="color: red;">Please create one first.</span><br>
+        {{ form.db_name(size=32) }}
+        {% for error in form.db_name.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        In order to prevent spam, MyPHP uses a CAPTCHA to ensure
+        that only humans perform dynamic actions.
+    </p>
+    <p>
+        {{ form.c_choice.label }}<br>
+        {{ form.c_choice() }}
+        <span style="color: red;">Use ReCaptcha at your own risk.</span>
+        {% for error in form.c_choice.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.c_sitekey.label }}<br>
+        {{ form.c_sitekey(size=32) }}
+        {% for error in form.c_sitekey.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.c_secret.label }}<br>
+        {{ form.c_secret(size=32) }}
+        {% for error in form.c_secret.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

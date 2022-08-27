@@ -1,0 +1,11 @@
+Dear {{ email }},
+
+To confirm your e-mail and register, click on the following link:
+
+{{ url_for('auth.register', token=token, _external=True) }}
+
+If you have not requested a new account reset simply ignore this message.
+
+Sincerely,
+
+MyPHP

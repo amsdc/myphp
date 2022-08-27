@@ -1,0 +1,109 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <h1>{{ user.get_name() }}'s Profile</h1>
+    {# {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+        {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    {% endwith %} #}
+    <div class="row">
+        <div class="col-lg-2">
+            <img class="rounded-circle" src="{{ user.avatar(500) }}" width="100%" {% if user.is_suspended() %} style="border-width:2px; border-color:red;" {% endif %}>
+            <hr>
+            <p align="center">Avatars come from Gravatar.</p>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#uinfo" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="uinfo">
+                <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+                </a>
+                <!-- Card Body -->
+                <div class="collapse show" id="uinfo">
+                    <div class="card-body">
+                        <ul>
+                            <li><b>User ID:</b> {{ user.id }}</li>
+                            <li>
+                                <b>
+                                    <abbr title="Unique Identification String">UID:</abbr>
+                                </b>&nbsp;
+                                {{ user.unique_id }}
+                            </li>
+                            <li><b>Name:</b> {{ user.full_name }}</li>
+                            <li><b>User Name:</b> {{ user.username }}</li>
+                            <li><b>User Email:</b> {{ user.email }}</li>
+							{% if user.is_suspended() %}
+							<li><b>Suspended User</b></li>
+							{% endif %}
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#utask" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="uinfo">
+                <h6 class="m-0 font-weight-bold text-primary">User Tasks</h6>
+                </a>
+                <!-- Card Body -->
+                <div class="collapse show" id="utask">
+                    <div class="card-body">
+						{% if user.is_suspended() %}
+						<ul>
+							<li>
+                                <a href="{{ url_for('user_management.activate_user', id=user.id) }}">Activate User Account</a>
+                            </li>
+							<li>
+                                <a href="{{ url_for('user_management.change_password', id=user.id) }}">Change Username</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user_management.change_password', id=user.id) }}">Change Password</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user_management.edit_profile', id=user.id) }}">Change e-mail and Display name</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user_management.list_roles', id=user.id) }}">Role Management</a>
+                            </li>
+							<li>
+                                <a href="{{ url_for('user_management.impersonate_user', id=user.id) }}">Impersonate user (login as user)</a>
+                            </li>
+							<li>
+                                <a href="{{ url_for('user_management.confirmation_page', action='user_management:delete_user', data=urlencode(jsonify(dict(id=user.id)))) }}">Delete User Account</a>
+                            </li>
+                        </ul>
+						{% else %}
+                        <ul>
+                            <li>
+                                <a href="{{ url_for('user_management.logout_all_sessions', id=user.id) }}">Log out all sessions</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user_management.change_password', id=user.id) }}">Change Password</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user_management.edit_profile', id=user.id) }}">Edit profile</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('user_management.list_roles', id=user.id) }}">Role Management</a>
+                            </li>
+                            <li>
+								<!-- Without confirmation: {{ url_for('user_management.suspend_user', id=user.id) }} -->
+                                <a href="{{ url_for('user_management.confirmation_page', action='user_management:suspend_user', data=urlencode(jsonify(dict(id=user.id)))) }}">Suspend User</a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

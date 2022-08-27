@@ -1,0 +1,9 @@
+{% extends "setup/base.html" %}
+{% block step %}0{% endblock %}
+{% block title %}Welcome to MyPHP{% endblock %}
+{% block content %}
+    <p>
+        In subsequent steps, MyPHP will be installed in a systematic order.
+    </p>
+    <a href="{{ url_for('setup.step', step=1) }}">Next &raquo;</a>
+{% endblock %}

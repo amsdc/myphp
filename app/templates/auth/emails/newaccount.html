@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <p>Dear {{ email }},</p>
+
+    <p>
+        To confirm your e-mail and register, click on the following link: <br>
+        <br>
+        <a href="{{ url_for('auth.register', token=token, _external=True) }}">Create an account</a> <br>
+        <br>
+        Alternatively, copy and paste this link in the address bar: <br>
+
+        <pre>{{ url_for('auth.register', token=token, _external=True) }}</pre>
+        <br>
+        If you have not requested a new account reset simply ignore this message.
+    </p>
+
+    <p>
+        Sincerely,
+        <br>
+        MyPHP
+    </p>
+</body>
+</html>

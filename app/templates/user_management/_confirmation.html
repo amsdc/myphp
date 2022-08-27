@@ -1,0 +1,21 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <div class="row">
+		<div class="col-md-12">
+			<h1>Confirm action?</h1>
+			<p>{{ message | safe }}</p>
+            <a href="{{ confirm_uri }}" class="btn btn-danger">Yes</a>
+            <a href="{{ url_for('user_management.list_') }}" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+<!-- Page level plugins -->
+<script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{ url_for('static', filename='js/demo/datatables-demo.js') }}"></script>
+{% endblock %}

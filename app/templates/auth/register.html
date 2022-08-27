@@ -1,0 +1,46 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+    {% if msg %}
+    <div class="alert alert-info">
+        {{ msg }}
+    </div>
+    {% endif %}
+    <div class="alert alert-warning">
+        <b>Heads Up:</b> You can't delete users right now.
+    </div>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(class="form-control", autocomplete="off") }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control", autocomplete="off") }}<br>
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control", autocomplete="off") }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(class="form-control", autocomplete="off") }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        {{ xcaptcha }}
+        <p>{{ form.submit(class="btn btn-success") }}</p>
+    </form>
+{% endblock %}

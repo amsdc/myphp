@@ -1,0 +1,26 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <h1>Add Role</h1>
+    <div class="alert alert-warning">
+        <b>Heads Up:</b> You can't delete roles right now.
+    </div>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.category.label }}<br>
+            {{ form.category(class="form-control", autocomplete="off") }}<br>
+            {% for error in form.category.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.scope.label }}<br>
+            {{ form.scope(class="form-control", autocomplete="off") }}<br>
+            {% for error in form.scope.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit(class="btn btn-success") }}</p>
+    </form>
+{% endblock %}

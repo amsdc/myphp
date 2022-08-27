@@ -1,0 +1,57 @@
+{% extends "auth/base.html" %}
+
+{% block title %}Reset password{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <div align="center"><img src='{{ url_for("static", filename="img/emblem.png") }}' alt="Logo" width="70px"></div>
+                        <h5 class="card-title text-center mb-5 fw-light display-4">
+                            Change password
+                        </h5>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            <div class="alert alert-danger" role="alert">
+                                
+                            {% for message in messages %}
+                            {{ message }}
+                            {% endfor %}
+                                
+                            </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div class="alert alert-info" role="alert">
+                            Resetting password for <b>{{ user.get_name() }}</b>
+                        </div>
+                        <form action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="form-floating mb-3">
+                                {{ form.password(id="password", class="form-control") }}
+                                <label for="password">{{ form.password.label }}</label>
+                                {% for error in form.password.errors %}
+                                <br>
+                                <span class="alert alert-danger" role="alert">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-floating mb-3">
+                                {{ form.password2(id="password2", class="form-control") }}
+                                <label for="password2">{{ form.password2.label }}</label>
+                                {% for error in form.password2.errors %}
+                                <br>
+                                <span class="alert alert-danger" role="alert">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {{ xcaptcha }}
+                            <div class="d-grid">
+                                {{ form.submit(class="btn btn-warning btn-login text-uppercase fw-bold") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

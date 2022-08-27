@@ -1,0 +1,65 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <div class="row">
+        <div class="col-lg-2">
+            <img class="rounded-circle" src="{{ current_user.avatar(500) }}" width="100%">
+            <hr>
+            <p align="center">Avatars come from Gravatar.</p>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#uinfo" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="uinfo">
+                <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+                </a>
+                <!-- Card Body -->
+                <div class="collapse show" id="uinfo">
+                    <div class="card-body">
+                        <ul>
+                            <li><b>User ID:</b> {{ current_user.id }}</li>
+                            <li>
+                                <b>
+                                    <abbr title="Unique Identification String">UID:</abbr>
+                                </b>&nbsp;
+                                {{ current_user.unique_id }}
+                            </li>
+                            <li><b>Name:</b> {{ current_user.full_name }}</li>
+                            <li><b>User Name:</b> {{ current_user.username }}</li>
+                            <li><b>User Email:</b> {{ current_user.email }}</li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#utask" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="uinfo">
+                <h6 class="m-0 font-weight-bold text-primary">User Tasks</h6>
+                </a>
+                <!-- Card Body -->
+                <div class="collapse show" id="utask">
+                    <div class="card-body">
+                        <ul>
+                            <li>
+                                <a href="{{ url_for('profile.logout_all_sessions') }}">Log out all sessions</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('auth.changepwd') }}">Change Password</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('profile.edit') }}">Edit your profile</a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

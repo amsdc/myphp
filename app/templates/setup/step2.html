@@ -1,0 +1,21 @@
+{% extends "setup/base.html" %}
+{% block step %}2{% endblock %}
+{% block title %}Create Database{% endblock %}
+{% block content %}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        To store page metadata, database tables have to be created.
+        Please click the button below to run the installation.
+    </p>
+    <p>
+        {{ form.vtext.label }}<br>
+        {{ form.vtext(size=32) }}
+        {% for error in form.vtext.errors %}
+        <br>
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

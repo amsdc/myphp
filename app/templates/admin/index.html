@@ -1,0 +1,56 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#uinfo" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="uinfo">
+                <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+                </a>
+                <!-- Card Body -->
+                <div class="collapse show" id="uinfo">
+                    <div class="card-body">
+                        <ul>
+                            <li><b>User ID:</b> {{ current_user.id }}</li>
+                            <li>
+                                <b>
+                                    <abbr title="Unique Identification String">UID:</abbr>
+                                </b>&nbsp;
+                                {{ current_user.unique_id }}
+                            </li>
+                            <li><b>User Name:</b> {{ current_user.username }}</li>
+                            <li><b>User Email:</b> {{ current_user.email }}</li>
+                            <li><b>Change your password:</b> <a href="{{ url_for('auth.changepwd') }}">Change Password Here</a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                
+                <a href="#applications" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="applications">
+                <h6 class="m-0 font-weight-bold text-primary">Applications</h6>
+                </a>
+                
+                <!-- Card Body -->
+                <div class="collapse show" id="applications">
+                    <div class="card-body">
+                        Nothing here!
+                        <ul>
+                            {# <li><a href="">Register other users</a></li> #}
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

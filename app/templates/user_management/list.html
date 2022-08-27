@@ -1,0 +1,65 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <div class="row">
+        <h1>Users</h1>
+        <div class="col-md-12">
+			<a href="{{ url_for('user_management.add_user')}}" class="btn btn-primary">Add user</a>
+			<br>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>E-mail Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>E-mail Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}{% if user.id == current_user.id %} (Current User) {% endif %}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.full_name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% if user.id == current_user.id %}
+                                Please manage your account in your profile.
+                                {% else %}
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a class="btn btn-primary" href="{{ url_for('user_management.profile', id=user.id) }}">View Profile</a>
+                                    {% if user.is_suspended() %}
+                                    <a href="{{ url_for('user_management.confirmation_page', action='user_management:delete_user', data=urlencode(jsonify(dict(id=user.id)))) }}" class="btn btn-danger">Delete</a>
+                                    {% else %}
+                                    <a href="{{ url_for('user_management.confirmation_page', action='user_management:suspend_user', data=urlencode(jsonify(dict(id=user.id)))) }}" class="btn btn-danger">Suspend</a>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+<!-- Page level plugins -->
+<script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{ url_for('static', filename='js/demo/datatables-demo.js') }}"></script>
+{% endblock %}

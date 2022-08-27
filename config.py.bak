@@ -1,0 +1,27 @@
+import os
+from dotenv import load_dotenv
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
+
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace(
+        'postgres://', 'postgresql://') or \
+        'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    #XCAPTCHA_SITE_KEY = "c1bb3cbb-7dc4-48a8-bf77-19eba4e919ed"
+    XCAPTCHA_SITE_KEY = "10000000-ffff-ffff-ffff-000000000001"
+    # XCAPTCHA_SECRET_KEY="0x98696Cbe0E553a7b659DB6fE128A3742F9382D99"
+    XCAPTCHA_SECRET_KEY="0x0000000000000000000000000000000000000000"
+    XCAPTCHA_VERIFY_URL="https://hcaptcha.com/siteverify"
+    XCAPTCHA_API_URL="https://hcaptcha.com/1/api.js"
+    XCAPTCHA_DIV_CLASS="h-captcha"
+
+    SESSION_COOKIE_NAME = "myphp_session"
+    REMEMBER_COOKIE_NAME = "myphp_remember_token"
+    SESSION_TYPE = "filesystem"
+    SESSION_FILE_DIR = ".session-data/"
+    
+    MYPHP_SETUP = True if str(os.environ.get('MYPHP_SETUP')).lower() == \
+        'true' else False

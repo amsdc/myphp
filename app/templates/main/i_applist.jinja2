@@ -1,0 +1,22 @@
+{% if applist %}
+<table class="table table-striped">
+    <thead class="thead-light">
+        <th scope="col">Application</th>
+        <th scope="col"></th>
+    </thead>
+    <tbody>
+{% for app in applist %}
+    {% if not app["requires"] or current_user.can_do(*app["requires"][0].split(":")) %}
+        <tr>
+            <td>{{ app["application_name"] or app["application_id"] }}</td>
+            {% if app["application_index_route"] %}
+            <td><a class="btn btn-light" href="{{ url_for(app['application_index_route']) }}" target="_blank" role="button"><i class="fas fa-external-link-alt"></i><span class="sr-only">Launch</span></a></td>
+            {% else %}
+            <td><a class="btn btn-light disabled" role="button" aria-disabled="true"><i class="fas fa-external-link-alt"></i><span class="sr-only">Launch</span></a></td>
+            {% endif %}
+        </tr>
+    {% endif %}
+{% endfor %}
+    </tbody>
+</table>
+{% endif %}

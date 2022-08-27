@@ -1,0 +1,43 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+    <h1>{{ user.get_name() }}'s Roles</h1>
+    <div class="row">
+        <div class="col-lg-2">
+            <img class="rounded-circle" src="{{ user.avatar(500) }}" width="100%">
+            <hr>
+            <p align="center">Avatars come from Gravatar.</p>
+        </div>
+        <div class="col-lg-10">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#urole" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="urole">
+                <h6 class="m-0 font-weight-bold text-primary">User Roles</h6>
+                </a>
+                <!-- Card Body -->
+                <div class="collapse show" id="urole">
+                    <div class="card-body">
+                        <a class="btn btn-primary" href="{{ url_for('user_management.add_roles', id=user.id) }}"><i class="fas fa-plus"></i> Add</a>
+                        <hr>
+                        {% if user.get_roles() %}
+                        <ul>
+                            {% for role in user.roles %}
+                            <li>
+                                {{ role.category }}:{{ role.scope }} &nbsp; 
+                                <a href="{{ url_for('user_management.edit_role', user_id=user.id, role_id=role.id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                &nbsp;
+                                {# <a href="{{ url_for('user_management.delete_role', user_id=user.id, role_id=role.id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a> #}
+                                <a href="{{ url_for('user_management.confirmation_page', action='roles:delete', data=urlencode(jsonify(dict(user_id=user.id, role_id=role.id)))) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p>No roles created</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
