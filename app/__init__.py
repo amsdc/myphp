@@ -13,9 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with MyPHP. If not, see <https://www.gnu.org/licenses/>. 
 
-# import logging
-# from logging.handlers import SMTPHandler, RotatingFileHandler
-# import os
+__version__ = "0.3.0"
 
 from flask import Flask, request, current_app
 from flask_sqlalchemy import SQLAlchemy
