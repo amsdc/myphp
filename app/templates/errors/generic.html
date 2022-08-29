@@ -1,0 +1,45 @@
+{% extends "auth/base.html" %}
+
+{% block title %}Error{% endblock %}
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center mb-5 fw-light display-5">
+                            {{name}}
+                        </h5>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                            {% if category == "message" %}
+                                {% set category = "success" %}
+                            {% endif %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                <strong>{{ message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <hr>
+                        {% endif %}
+                        {% endwith %}
+                        <p>{{description}}</p>
+						{% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.index') }}">Home</a>
+                        {% else %}
+                        <a href="{{ url_for('auth.login') }}">Login</a>
+                        {% endif %}
+                        <hr>
+                        <p><i>MyPHP {{version}}</i></p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

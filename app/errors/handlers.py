@@ -13,9 +13,12 @@
 # You should have received a copy of the GNU General Public License along
 # with MyPHP. If not, see <https://www.gnu.org/licenses/>. 
 
-from flask import escape
+from flask import escape, jsonify, request, \
+    render_template
 from flask_principal import PermissionDenied
+from werkzeug.exceptions import HTTPException
 
+from app import __version__
 from app.errors import bp
 
 @bp.app_errorhandler(PermissionDenied)
@@ -31,6 +34,14 @@ def permission_denied_error(e):
     op+="</ul>"
     return op, 403
 
-# @bp.app_errorhandler(404)
-# def permission_denied_error(e):
-#     return f"<h1>Error</h1><hr>{e}<br>{dir(e)}", 404
+
+@bp.app_errorhandler(HTTPException)
+def permission_denied_error(e):
+    if request.path.startswith('/api/'):
+        # we return a json saying so
+        return jsonify(message=e.description), e.code
+    else:
+        return render_template("errors/generic.html",
+                               name=e.name, 
+                               description=e.description,
+                               version=__version__)
